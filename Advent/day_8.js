@@ -22,21 +22,39 @@ const getStepsToMake = (command) => {
 };
 
 const loop = (commands) => {
+  accumulator = 0;
   let index = 0;
   let indexes = [];
-  console.log(indexes.indexOf(index) === -1);
+
   while (indexes.indexOf(index) === -1) {
     indexes.push(index);
-    console.log("old index:", index);
+    if (index === commands.length) break;
+
     index += getStepsToMake(commands[index]);
-    console.log(
-      "steps to make:",
-      commands[index].amountOfSteps,
-      "new index:",
-      index
-    );
   }
+  return index === commands.length;
 };
 
-loop(data);
-console.log("accumulator, answer:", accumulator);
+const checkNewLoop = (briljant, i, newValue) => {
+  briljant[i].name = newValue;
+  return loop(briljant);
+};
+
+const checkLoop = (commands) => {
+  commands.forEach((command, i) => {
+    const copy = JSON.parse(JSON.stringify(commands));
+    if (command.name == "nop") {
+      if (checkNewLoop(copy, i, "jmp")) {
+        console.log("YESS", accumulator);
+      }
+    }
+    if (command.name == "jmp") {
+      if (checkNewLoop(copy, i, "nop")) {
+        console.log("YESssssS", accumulator);
+      }
+    }
+    return;
+  });
+};
+
+checkLoop(data);
