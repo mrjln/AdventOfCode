@@ -82,25 +82,25 @@ const calcWinningBord = (bord) => {
   return unmarkedNumbers.reduce((a, b) => a + b);
 };
 
-// let winner = false;
-// let i = 0;
-// while (!winner) {
-//   bords.forEach((bord) => {
-//     markDrawnNumber(drawnNumbers[i], bord);
-//     if (checkIfBordWins(bord)) {
-//       winner = true;
-//       const sum = calcWinningBord(bord);
-//       const answer = sum * drawnNumbers[i];
-//       console.log(answer);
-//     }
-//   });
-//   i++;
-// }
+// part 1
+let winner = false;
+let i = 0;
+while (!winner) {
+  bords.forEach((bord) => {
+    markDrawnNumber(drawnNumbers[i], bord);
+    if (checkIfBordWins(bord)) {
+      winner = true;
+      const sum = calcWinningBord(bord);
+      const answer = sum * drawnNumbers[i];
+      console.log(answer);
+    }
+  });
+  i++;
+}
 
 //part 2
 let lastWinner = false;
 let numbersIndex = 0;
-let leftbords = bords;
 let winnersIndexes = [];
 while (!lastWinner) {
   bords.forEach((bord, bordIndex) => {
